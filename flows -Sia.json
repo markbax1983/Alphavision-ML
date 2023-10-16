@@ -1,0 +1,1727 @@
+[
+    {
+        "id": "dbe3aa8d658ec9ce",
+        "type": "tab",
+        "label": "SIA Alarm Koppeling",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "53ad64fbf10ad39a",
+        "type": "SIAUltimate",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "topic": "",
+        "server": "5944bcfdc986cb1b",
+        "discardAutomaticTest": "no",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "925b2be5d90f90a0"
+            ],
+            [
+                "fcfbf71ff149763b"
+            ]
+        ]
+    },
+    {
+        "id": "925b2be5d90f90a0",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 1",
+        "func": "var m = msg.decoded.str;\nmsg.payload = m;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 280,
+        "wires": [
+            [
+                "468c94509e76dc13"
+            ]
+        ]
+    },
+    {
+        "id": "468c94509e76dc13",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "\"NULL\"",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "\"SIA-DCS\"",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "d51074afd716705e"
+            ],
+            [
+                "adf9516ac3e62c4e"
+            ]
+        ]
+    },
+    {
+        "id": "d51074afd716705e",
+        "type": "debug",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Heartbeat",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "adf9516ac3e62c4e",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 3",
+        "func": "var pl = msg.payload.split(\"#\");\nvar newMsg = { payload: pl }\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 320,
+        "wires": [
+            [
+                "a157dc8a9f99795d"
+            ]
+        ]
+    },
+    {
+        "id": "a157dc8a9f99795d",
+        "type": "split",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "1fe80bbe50f9bac3"
+            ]
+        ]
+    },
+    {
+        "id": "1fe80bbe50f9bac3",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "\"SIA-DCS",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1234[",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 910,
+        "y": 320,
+        "wires": [
+            [],
+            [],
+            [
+                "a76796f52959f246",
+                "c74bb0ca2cc37d21"
+            ]
+        ]
+    },
+    {
+        "id": "a76796f52959f246",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1234|0|",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 340,
+        "wires": [
+            [
+                "69a072ceebfea82d"
+            ]
+        ]
+    },
+    {
+        "id": "8a8bd245f438fa78",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zones",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Nri01",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Nri02",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Nri03",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Nri04",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "Nri00",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 170,
+        "y": 860,
+        "wires": [
+            [
+                "dbea2ca7cb7ed424"
+            ],
+            [
+                "accc788e8c11b1de"
+            ],
+            [
+                "9c97bb5f363cb0a8"
+            ],
+            [
+                "a9e45510012264ab"
+            ],
+            [
+                "872325d416864b77"
+            ],
+            [
+                "e4cc5c88e93966b7"
+            ]
+        ]
+    },
+    {
+        "id": "e4cc5c88e93966b7",
+        "type": "debug",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Message unknown",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "a9e45510012264ab",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/CL",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/OP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/BA",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/FA",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 1140,
+        "wires": [
+            [
+                "60d2232bfeb42446"
+            ],
+            [
+                "3fc6272b39ee497e"
+            ],
+            [
+                "6ff67f76be6da50b"
+            ],
+            [
+                "3deb7b757bd9d2bc"
+            ],
+            [
+                "6f10a45cca578d92"
+            ]
+        ]
+    },
+    {
+        "id": "bf8557cd5c5c546b",
+        "type": "comment",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Deel 2",
+        "info": "In Deel 2 worden de \"Schone\" berichten \nuitgezet naar de zones en vervolgens\nworden de verschillende types gefilterd\ner is een uitwerking van 4 Zones",
+        "x": 110,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "9c97bb5f363cb0a8",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/CL",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/OP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/BA",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/FA",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 980,
+        "wires": [
+            [
+                "3c73fb85e67fdbe1"
+            ],
+            [
+                "5a62e1d0c12e72ce"
+            ],
+            [
+                "6d1ee572e92ffb37"
+            ],
+            [
+                "6262062c5f796d1f"
+            ],
+            [
+                "6f10a45cca578d92"
+            ]
+        ]
+    },
+    {
+        "id": "3c73fb85e67fdbe1",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 3 = Ingeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 3 = Ingeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 920,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "5a62e1d0c12e72ce",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 3 = Uitgeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 3 = Uitgeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 960,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "3348d2b0fec87784",
+        "type": "debug",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "accc788e8c11b1de",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/CL",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/OP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/BA",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/FA",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 820,
+        "wires": [
+            [
+                "08ab74ac1f7b132f"
+            ],
+            [
+                "f17df15773da9cca"
+            ],
+            [
+                "e705aa5f740289b4"
+            ],
+            [
+                "672a522517159cfa"
+            ],
+            [
+                "6f10a45cca578d92"
+            ]
+        ]
+    },
+    {
+        "id": "08ab74ac1f7b132f",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 2 = Ingeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 2 = Ingeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 760,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "f17df15773da9cca",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 2 = Uitgeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 2 = Uitgeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 800,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "e705aa5f740289b4",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 2 = Alarm",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri02/BA",
+                "fromt": "str",
+                "to": "Zone 2 - Alarm - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 840,
+        "wires": [
+            [
+                "d35cb7be5f193084"
+            ]
+        ]
+    },
+    {
+        "id": "dbea2ca7cb7ed424",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/CL",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/OP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/BA",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/FA",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 660,
+        "wires": [
+            [
+                "bbe01be6db39d66c"
+            ],
+            [
+                "68dcc6ed4226f573"
+            ],
+            [
+                "89be3a0531838308"
+            ],
+            [
+                "dc6d84e951e6b92c"
+            ],
+            [
+                "6f10a45cca578d92"
+            ]
+        ]
+    },
+    {
+        "id": "bbe01be6db39d66c",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 1 = Ingeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 1 = Ingeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 600,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "68dcc6ed4226f573",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 1 = Uitgeschakeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Zone 1 = Uitgeschakeld",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 640,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "6f10a45cca578d92",
+        "type": "link out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Onbekende Zone Melding",
+        "mode": "link",
+        "links": [
+            "fc53f6491c53db65"
+        ],
+        "x": 615,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "fc53f6491c53db65",
+        "type": "link in",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link in 4",
+        "links": [
+            "6f10a45cca578d92",
+            "b356c9840648a259"
+        ],
+        "x": 235,
+        "y": 1520,
+        "wires": [
+            [
+                "e4cc5c88e93966b7"
+            ]
+        ]
+    },
+    {
+        "id": "69a072ceebfea82d",
+        "type": "link out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "c5eefb996db2db0f"
+        ],
+        "x": 1265,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c5eefb996db2db0f",
+        "type": "link in",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link in 5",
+        "links": [
+            "69a072ceebfea82d"
+        ],
+        "x": 65,
+        "y": 860,
+        "wires": [
+            [
+                "8a8bd245f438fa78"
+            ]
+        ]
+    },
+    {
+        "id": "872325d416864b77",
+        "type": "switch",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "/RP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/AT",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/YT",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "/BC",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 1400,
+        "wires": [
+            [
+                "d366384ee6b1cde1"
+            ],
+            [
+                "663f3bb4b77b8893"
+            ],
+            [
+                "21b538a1e476520a"
+            ],
+            [
+                "bb74595584480d2e"
+            ],
+            [
+                "b356c9840648a259"
+            ]
+        ]
+    },
+    {
+        "id": "d366384ee6b1cde1",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Centrale - Controle bericht",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Centrale - Controle bericht",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1340,
+        "wires": [
+            [
+                "51a8887996f3f09c"
+            ]
+        ]
+    },
+    {
+        "id": "663f3bb4b77b8893",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Centrale - storing voeding AC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Centrale - storing voeding AC",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1380,
+        "wires": [
+            [
+                "51a8887996f3f09c"
+            ]
+        ]
+    },
+    {
+        "id": "21b538a1e476520a",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Centrale - Storing Accu",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Centrale - Storing Accu",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 1420,
+        "wires": [
+            [
+                "51a8887996f3f09c"
+            ]
+        ]
+    },
+    {
+        "id": "bb74595584480d2e",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Centrale - Melding Hersteld door gebruiker",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Centrale - Melding Hersteld door gebruiker",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 1460,
+        "wires": [
+            [
+                "51a8887996f3f09c"
+            ]
+        ]
+    },
+    {
+        "id": "b356c9840648a259",
+        "type": "link out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "fc53f6491c53db65"
+        ],
+        "x": 615,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "89be3a0531838308",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 1 = Alarm",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri01/BA",
+                "fromt": "str",
+                "to": "Zone 1 - Alarm - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 680,
+        "wires": [
+            [
+                "d35cb7be5f193084"
+            ]
+        ]
+    },
+    {
+        "id": "6d1ee572e92ffb37",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 3 = Alarm",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri03/BA",
+                "fromt": "str",
+                "to": "Zone 3 - Alarm - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 1000,
+        "wires": [
+            [
+                "d35cb7be5f193084"
+            ]
+        ]
+    },
+    {
+        "id": "6ff67f76be6da50b",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 4 = Alarm",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri04/BA",
+                "fromt": "str",
+                "to": "Zone 4 - Alarm - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 1160,
+        "wires": [
+            [
+                "d35cb7be5f193084"
+            ]
+        ]
+    },
+    {
+        "id": "61322838b5a26c9a",
+        "type": "inject",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Test Inbraak",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Nri02/BA003*'test  'NM]",
+        "payloadType": "str",
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "8a8bd245f438fa78"
+            ]
+        ]
+    },
+    {
+        "id": "c74bb0ca2cc37d21",
+        "type": "debug",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d35cb7be5f193084",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 4",
+        "func": "var pl = msg.payload.trimEnd();\nvar newMsg = { payload: pl }\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 740,
+        "wires": [
+            [
+                "3348d2b0fec87784",
+                "dfc12096591252a5"
+            ]
+        ]
+    },
+    {
+        "id": "60d2232bfeb42446",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 4 = Ingeschakeld",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri04/CL",
+                "fromt": "str",
+                "to": "Zone 4 - Ingeschakeld door ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 1080,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "3fc6272b39ee497e",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 4 = Uitgeschakeld",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri04/OP",
+                "fromt": "str",
+                "to": "Zone 4 - Uitgeschakeld door ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 1120,
+        "wires": [
+            [
+                "cedb4b7dbbce3d95"
+            ]
+        ]
+    },
+    {
+        "id": "3deb7b757bd9d2bc",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 4 = Brand",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri04/FA",
+                "fromt": "str",
+                "to": "Zone 4 - Brand - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 1200,
+        "wires": [
+            [
+                "ac704a1d100c796f"
+            ]
+        ]
+    },
+    {
+        "id": "6262062c5f796d1f",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 3 = Brand",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri03/FA",
+                "fromt": "str",
+                "to": "Zone 3 - Brand - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 1040,
+        "wires": [
+            [
+                "ac704a1d100c796f"
+            ]
+        ]
+    },
+    {
+        "id": "672a522517159cfa",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 2 = Brand",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri02/FA",
+                "fromt": "str",
+                "to": "Zone 2 - Brand - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 880,
+        "wires": [
+            [
+                "ac704a1d100c796f"
+            ]
+        ]
+    },
+    {
+        "id": "dc6d84e951e6b92c",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Zone 1 = Brand",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Nri01/FA",
+                "fromt": "str",
+                "to": "Zone 1 - Brand - Melder ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "*'",
+                "fromt": "str",
+                "to": " - ",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "'NM]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 720,
+        "wires": [
+            [
+                "ac704a1d100c796f"
+            ]
+        ]
+    },
+    {
+        "id": "7947a13a6b9e6dc4",
+        "type": "inject",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Test Brand",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Nri02/FA003*'test  'NM]",
+        "payloadType": "str",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "8a8bd245f438fa78"
+            ]
+        ]
+    },
+    {
+        "id": "dfc12096591252a5",
+        "type": "mqtt out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "topic": "sia/alarm",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "899d5b66ca170f82",
+        "x": 1520,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "6e29086f3963ef7e",
+        "type": "mqtt out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "topic": "sia/in-uit",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "899d5b66ca170f82",
+        "x": 1520,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "099cafc80bb6e6e3",
+        "type": "mqtt out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "topic": "sia/brand",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "899d5b66ca170f82",
+        "x": 1520,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "006e097ad4d2f175",
+        "type": "mqtt out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "",
+        "topic": "sia/systeem",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "899d5b66ca170f82",
+        "x": 1530,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "ac704a1d100c796f",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 5",
+        "func": "var pl = msg.payload.trimEnd();\nvar newMsg = { payload: pl }\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 780,
+        "wires": [
+            [
+                "099cafc80bb6e6e3",
+                "3348d2b0fec87784"
+            ]
+        ]
+    },
+    {
+        "id": "cedb4b7dbbce3d95",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 6",
+        "func": "var pl = msg.payload.trimEnd();\nvar newMsg = { payload: pl }\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 700,
+        "wires": [
+            [
+                "6e29086f3963ef7e",
+                "3348d2b0fec87784"
+            ]
+        ]
+    },
+    {
+        "id": "51a8887996f3f09c",
+        "type": "function",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "function 7",
+        "func": "var pl = msg.payload.trimEnd();\nvar newMsg = { payload: pl }\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 1220,
+        "wires": [
+            [
+                "006e097ad4d2f175",
+                "3348d2b0fec87784"
+            ]
+        ]
+    },
+    {
+        "id": "fcfbf71ff149763b",
+        "type": "change",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Centrale - Storing SIA Koppeling",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Centrale - Storing SIA Koppeling",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 380,
+        "wires": [
+            [
+                "916002d2d77625c4"
+            ]
+        ]
+    },
+    {
+        "id": "df4eed28f2c62d61",
+        "type": "link in",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link in 6",
+        "links": [
+            "916002d2d77625c4"
+        ],
+        "x": 1405,
+        "y": 1240,
+        "wires": [
+            [
+                "006e097ad4d2f175"
+            ]
+        ]
+    },
+    {
+        "id": "916002d2d77625c4",
+        "type": "link out",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "df4eed28f2c62d61"
+        ],
+        "x": 535,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c57e9f00854b6d57",
+        "type": "comment",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Deel 1",
+        "info": "In Deel 1 worden de binnen komende berichten\ngefilterd en gesplitst zodat er een \nbericht over blijft welke makkelijk \nte bewerken is in deel 2",
+        "x": 110,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b83c3ccd01bbcc27",
+        "type": "comment",
+        "z": "dbe3aa8d658ec9ce",
+        "name": "Algemeen",
+        "info": "Flow SIA koppeling Alphatronics ML\n\nDe flow is gemaakt op de basis van het \nSIA protocol. omdat het mij niet lukte\nok de standaard integratie werkend \nte krijgen heb ik deze flow gebouwd\nde standaard integratie doet de 1e \nbericht afhandeling en zorgt dat de\ncentrale ook een antwoord krijf=gt waardoor \ndeze uit storing blijft.\n\nDoor het binnen komend bericht te filteren\nen te splitsen ben ik tot een bericht gekomen \nwelke ik via MQTT door stuur naar Home-Assisant\n\nWelke berichten zijn verwerkt\nVoor de Zones:\n/CL = Inschakelen Zone\n/OP\t= Uitschakelen Zone\n/BA = Inbraak alarm\n/FA = Brand Alarm\n\nAlgemeen:\n/RP = Centrale - Controle bericht\n/AT = Centrale - storing voeding AC\n/YT = Centrale - Storing Accu\n/BC = Centrale - Melding Hersteld door gebruiker",
+        "x": 120,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5944bcfdc986cb1b",
+        "type": "siaendpoint-config",
+        "port": "4000",
+        "name": "Server",
+        "acktimeout": "12",
+        "hex": "yes",
+        "aes": "no",
+        "heartbeatTimeout": "120",
+        "deviceList": "0000,Alarm Panel\n0052,Alarm Panel1\n0|,Alarm Panel2\n1,PIR Bedrom\n2,Microwave Front Door\n4,PIR Soggiorno\n001,paneel\nNri04,test1"
+    },
+    {
+        "id": "899d5b66ca170f82",
+        "type": "mqtt-broker",
+        "name": "MQTT",
+        "broker": "192.168.4.33",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
